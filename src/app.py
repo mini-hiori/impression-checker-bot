@@ -80,7 +80,6 @@ async def on_message(message):
                 await message.channel.send("\n".join(ret[75:]))
         else:
             await message.channel.send("つながらへんのん")
-    elif re.match(r"/check_short_impression event=")
     else:
         ret = "正しいメッセージを送卵塊！"
         await message.channel.send(ret)
