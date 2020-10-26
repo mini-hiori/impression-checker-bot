@@ -45,7 +45,9 @@ async def on_message(message):
             r"/check_short_impression event=([0-9]+) id=([0-9]+)", message.content).groups()
         ret = get_short_impression(event_id, bms_id)
         if ret:
-            await message.channel.send(ret)
+            # 2000文字までしか送れないので…
+            for i in range(len(ret)/800):
+                await message.channel.send(ret[i*800:(i+1)*800])
         else:
             await message.channel.send("つながらへんのん")
     elif re.match(r"/check_long_impression event=[0-9]+ id=[0-9]+", message.content):
@@ -53,7 +55,9 @@ async def on_message(message):
             r"/check_long_impression event=([0-9]+) id=([0-9]+)", message.content).groups()
         ret = get_long_impression(event_id, bms_id)
         if ret:
-            await message.channel.send(ret)
+            # 2000文字までしか送れないので…
+            for i in range(len(ret)/800):
+                await message.channel.send(ret[i*800:(i+1)*800])
         else:
             await message.channel.send("つながらへんのん")
     elif message.content == "/event_list":
