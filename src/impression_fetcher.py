@@ -212,7 +212,3 @@ def get_stats(event_id, bms_id):
         return ret
     else:
         return ""
-
-
-if __name__ == '__main__':
-    print(get_bms_list("132"))
