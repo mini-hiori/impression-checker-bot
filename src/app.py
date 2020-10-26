@@ -3,7 +3,13 @@ import re
 
 import discord
 
-from impression_fetcher import get_bms_list, get_event_list, get_stats
+from impression_fetcher import (
+    get_bms_list,
+    get_event_list,
+    get_stats,
+    get_short_impression,
+    get_long_impression
+)
 
 TOKEN = os.environ['DISCORD_BOT_TOKEN']
 
@@ -28,16 +34,24 @@ async def on_message(message):
         return
     if re.match(r"/stats event=[0-9]+ id=[0-9]+", message.content):
         event_id, bms_id = re.search(
-            r"/インプレ旋回 event=([0-9]+) id=([0-9]+)", message.content).groups()
+            r"/stats event=([0-9]+) id=([0-9]+)", message.content).groups()
         ret = get_stats(event_id, bms_id)
         if ret:
             await message.channel.send(ret)
         else:
             await message.channel.send("つながらへんのん")
-    elif re.match(r"/recent_short_impression event=[0-9]+ id=[0-9]+", message.content):
+    elif re.match(r"/check_short_impression event=[0-9]+ id=[0-9]+", message.content):
         event_id, bms_id = re.search(
-            r"/インプレ旋回 event=([0-9]+) id=([0-9]+)", message.content).groups()
-        ret = get_stats(event_id, bms_id)
+            r"/check_short_impression event=([0-9]+) id=([0-9]+)", message.content).groups()
+        ret = get_short_impression(event_id, bms_id)
+        if ret:
+            await message.channel.send(ret)
+        else:
+            await message.channel.send("つながらへんのん")
+    elif re.match(r"/check_long_impression event=[0-9]+ id=[0-9]+", message.content):
+        event_id, bms_id = re.search(
+            r"/check_long_impression event=([0-9]+) id=([0-9]+)", message.content).groups()
+        ret = get_long_impression(event_id, bms_id)
         if ret:
             await message.channel.send(ret)
         else:
@@ -66,6 +80,7 @@ async def on_message(message):
                 await message.channel.send("\n".join(ret[75:]))
         else:
             await message.channel.send("つながらへんのん")
+    elif re.match(r"/check_short_impression event=")
     else:
         ret = "正しいメッセージを送卵塊！"
         await message.channel.send(ret)
