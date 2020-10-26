@@ -218,18 +218,26 @@ def get_stats(event_id, bms_id):
 
 def get_short_impression(event_id,bms_id):
     bms_info = ImpressionFetcher(event_id, bms_id)
-    impressions = bms_info.get_recent_short_impression()
-    message = ""
-    for imp in impressions:
-        imp = ",".join(imp).strip()
-        message += imp + "\n"
+    result = bms_info.fetch_bms_info()
+    if result:
+        impressions = bms_info.get_recent_short_impression()
+        message = ""
+        for imp in impressions:
+            imp = ",".join(imp).strip()
+            message += imp + "\n"
+    else:
+        message = ""
     return message
 
 def get_long_impression(event_id,bms_id):
     bms_info = ImpressionFetcher(event_id, bms_id)
-    impressions = bms_info.get_recent_long_impression()
-    message = ""
-    for imp in impressions:
-        imp = ",".join(imp).strip()
-        message += imp + "\n"
+    result = bms_info.fetch_bms_info()
+    if result:
+        impressions = bms_info.get_recent_long_impression()
+        message = ""
+        for imp in impressions:
+            imp = ",".join(imp).strip()
+            message += imp + "\n"
+    else:
+        message = ""
     return message
