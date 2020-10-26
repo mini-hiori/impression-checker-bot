@@ -1,15 +1,12 @@
+import math
 import os
 import re
 
 import discord
 
-from impression_fetcher import (
-    get_bms_list,
-    get_event_list,
-    get_stats,
-    get_short_impression,
-    get_long_impression
-)
+from impression_fetcher import (get_bms_list, get_event_list,
+                                get_long_impression, get_short_impression,
+                                get_stats)
 
 TOKEN = os.environ['DISCORD_BOT_TOKEN']
 
@@ -46,7 +43,7 @@ async def on_message(message):
         ret = get_short_impression(event_id, bms_id)
         if ret:
             # 2000文字までしか送れないので…
-            for i in range(len(ret)/800):
+            for i in range(math.ceil(len(ret)/800)):
                 await message.channel.send(ret[i*800:(i+1)*800])
         else:
             await message.channel.send("つながらへんのん")
@@ -56,7 +53,7 @@ async def on_message(message):
         ret = get_long_impression(event_id, bms_id)
         if ret:
             # 2000文字までしか送れないので…
-            for i in range(len(ret)/800):
+            for i in range(math.ceil(len(ret)/800)):
                 await message.channel.send(ret[i*800:(i+1)*800])
         else:
             await message.channel.send("つながらへんのん")
