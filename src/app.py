@@ -48,7 +48,8 @@ async def on_message(message):
             ret = ret.split("\n")
             # 2000文字までしか送れないらしいので、途中で切る
             await message.channel.send("\n".join(ret[:75]))
-            await message.channel.send("\n".join(ret[75:]))
+            if ret[75:]:
+                await message.channel.send("\n".join(ret[75:]))
         else:
             await message.channel.send("つながらへんのん")
     elif re.match(r"/bms_list event=[0-9]+", message.content):
@@ -61,7 +62,8 @@ async def on_message(message):
             ret = ret.split("\n")
             # 2000文字までしか送れないらしいので、途中で切る
             await message.channel.send("\n".join(ret[:75]))
-            await message.channel.send("\n".join(ret[75:]))
+            if ret[75:]:
+                await message.channel.send("\n".join(ret[75:]))
         else:
             await message.channel.send("つながらへんのん")
     else:
