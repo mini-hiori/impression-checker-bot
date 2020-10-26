@@ -1,3 +1,4 @@
 discord.py
 requests
 BeautifulSoup4
+lxml
