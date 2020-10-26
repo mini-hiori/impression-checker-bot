@@ -31,6 +31,7 @@ class ImpressionFetcher:
                 self.soup = None
                 return None
         except BaseException:
+            traceback.print_exc()
             # もうちょっと細分化した方がいい タイムアウトとか...
             self.raw_html = ""
             self.soup = None
@@ -167,6 +168,7 @@ def get_event_list():
         else:
             return ""
     except BaseException:
+        traceback.print_exc()
         # もうちょっと細分化した方がいい タイムアウトとか...
         return ""
 
