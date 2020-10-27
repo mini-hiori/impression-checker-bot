@@ -9,6 +9,7 @@ from impression_fetcher import (get_bms_list, get_event_list,
                                 get_stats)
 
 TOKEN = os.environ['DISCORD_BOT_TOKEN']
+TARGET_CHANNEL_LIST = ["インプレ旋回bot"]
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
@@ -25,11 +26,14 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    # メッセージ送信者がBotだった場合は無視する
-    print(message.content)
-    if message.author.bot:
+    if message.author.bot or str(message.channel) not in TARGET_CHANNEL_LIST:
+        # 発言者がbotなら無視、また/インプレ旋回bot以外のチャンネルの発言は無視
+        # message.channelはdiscord.channel.TextChannel型なのでstrと直接比較できない
         return
-    if re.match(r"/stats event=[0-9]+ id=[0-9]+", message.content):
+    if message.content == "/インプレ旋回":
+        print("インプレ旋回")
+        await message.channel.send("インプレ旋回！")
+    elif re.match(r"/stats event=[0-9]+ id=[0-9]+", message.content):
         event_id, bms_id = re.search(
             r"/stats event=([0-9]+) id=([0-9]+)", message.content).groups()
         ret = get_stats(event_id, bms_id)
