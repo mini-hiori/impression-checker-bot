@@ -9,27 +9,27 @@ from impression_fetcher import (get_bms_list, get_event_list,
                                 get_stats)
 
 TOKEN = os.environ['DISCORD_BOT_TOKEN']
+TARGET_CHANNEL_LIST = ["インプレ旋回bot"]
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
-
-# 起動時に動作する処理
 
 
 @client.event
 async def on_ready():
     print('ログインしました')
 
-# メッセージ受信時に動作する処理
-
 
 @client.event
 async def on_message(message):
-    # メッセージ送信者がBotだった場合は無視する
-    print(message.content)
-    if message.author.bot:
+    if message.author.bot or str(message.channel) not in TARGET_CHANNEL_LIST:
+        # 発言者がbotなら無視、また/インプレ旋回bot以外のチャンネルの発言は無視
+        # message.channelはdiscord.channel.TextChannel型なのでstrと直接比較できない
         return
-    if re.match(r"/stats event=[0-9]+ id=[0-9]+", message.content):
+    if message.content == "/インプレ旋回":
+        print("インプレ旋回")
+        await message.channel.send("インプレ旋回！")
+    elif re.match(r"/stats event=[0-9]+ id=[0-9]+", message.content):
         event_id, bms_id = re.search(
             r"/stats event=([0-9]+) id=([0-9]+)", message.content).groups()
         ret = get_stats(event_id, bms_id)
@@ -43,8 +43,8 @@ async def on_message(message):
         ret = get_short_impression(event_id, bms_id)
         if ret:
             # 2000文字までしか送れないので…
-            for i in range(math.ceil(len(ret)/800)):
-                await message.channel.send(ret[i*800:(i+1)*800])
+            for i in range(math.ceil(len(ret) / 800)):
+                await message.channel.send(ret[i * 800:(i + 1) * 800])
         else:
             await message.channel.send("つながらへんのん")
     elif re.match(r"/check_long_impression event=[0-9]+ id=[0-9]+", message.content):
@@ -53,8 +53,8 @@ async def on_message(message):
         ret = get_long_impression(event_id, bms_id)
         if ret:
             # 2000文字までしか送れないので…
-            for i in range(math.ceil(len(ret)/800)):
-                await message.channel.send(ret[i*800:(i+1)*800])
+            for i in range(math.ceil(len(ret) / 800)):
+                await message.channel.send(ret[i * 800:(i + 1) * 800])
         else:
             await message.channel.send("つながらへんのん")
     elif message.content == "/event_list":
