@@ -14,14 +14,10 @@ TARGET_CHANNEL_LIST = ["インプレ旋回bot"]
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
 
-# 起動時に動作する処理
-
 
 @client.event
 async def on_ready():
     print('ログインしました')
-
-# メッセージ受信時に動作する処理
 
 
 @client.event
