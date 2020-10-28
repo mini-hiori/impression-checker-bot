@@ -93,6 +93,5 @@ async def on_message(message):
             await message.channel.send("バグりました 修正旋回！！！！！！")
 
 
-
 if __name__ == '__main__':
     client.run(TOKEN)
