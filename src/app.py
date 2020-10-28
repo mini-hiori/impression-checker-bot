@@ -38,7 +38,7 @@ async def on_message(message):
                     r"/stats event=([0-9]+) id=([0-9]+)", message.content).groups()
                 ret = get_stats(event_id, bms_id)
                 if ret:
-                    await message.channel.send(ret)
+                    send_message_split(message, ret)
                 else:
                     await message.channel.send("インプレ取得に失敗しました バグ鴨試練")
             elif re.match(r"/check_short_impression event=[0-9]+ id=[0-9]+", message.content):
@@ -46,9 +46,7 @@ async def on_message(message):
                     r"/check_short_impression event=([0-9]+) id=([0-9]+)", message.content).groups()
                 ret = get_short_impression(event_id, bms_id)
                 if ret:
-                    # 2000文字までしか送れないので…
-                    for i in range(math.ceil(len(ret) / 800)):
-                        await message.channel.send(ret[i * 800:(i + 1) * 800])
+                    send_message_split(message, ret)
                 else:
                     await message.channel.send("インプレ取得に失敗しました バグ鴨試練")
             elif re.match(r"/check_long_impression event=[0-9]+ id=[0-9]+", message.content):
@@ -56,19 +54,13 @@ async def on_message(message):
                     r"/check_long_impression event=([0-9]+) id=([0-9]+)", message.content).groups()
                 ret = get_long_impression(event_id, bms_id)
                 if ret:
-                    # 2000文字までしか送れないので…
-                    for i in range(math.ceil(len(ret) / 800)):
-                        await message.channel.send(ret[i * 800:(i + 1) * 800])
+                    send_message_split(message, ret)
                 else:
                     await message.channel.send("インプレ取得に失敗しました バグ鴨試練")
             elif message.content == "/event_list":
                 ret = get_event_list()
                 if ret:
-                    ret = ret.split("\n")
-                    # 2000文字までしか送れないらしいので、途中で切る
-                    await message.channel.send("\n".join(ret[:50]))
-                    if ret[50:]:
-                        await message.channel.send("\n".join(ret[50:]))
+                    send_message_split(message, ret)
                 else:
                     await message.channel.send("インプレ取得に失敗しました バグ鴨試練")
             elif re.match(r"/bms_list event=[0-9]+", message.content):
@@ -78,11 +70,7 @@ async def on_message(message):
                 print(bms_id)
                 ret = get_bms_list(bms_id)
                 if ret:
-                    ret = ret.split("\n")
-                    # 2000文字までしか送れないらしいので、途中で切る
-                    await message.channel.send("\n".join(ret[:50]))
-                    if ret[50:]:
-                        await message.channel.send("\n".join(ret[50:]))
+                    send_message_split(message, ret)
                 else:
                     await message.channel.send("インプレ取得に失敗しました バグ鴨試練")
             else:
@@ -91,6 +79,11 @@ async def on_message(message):
         except BaseException:
             traceback.print_exc()
             await message.channel.send("バグりました 修正旋回！！！！！！")
+
+
+def send_message_split(message_obj, message_str):
+    for i in range(math.ceil(len(message_str) / 800)):
+        await message_obj.channel.send(message_str[i * 800:(i + 1) * 800])
 
 
 if __name__ == '__main__':
