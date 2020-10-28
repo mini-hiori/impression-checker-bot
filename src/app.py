@@ -26,7 +26,7 @@ async def on_message(message):
         # 発言者がbotなら無視、また/インプレ旋回bot以外のチャンネルの発言は無視
         # message.channelはdiscord.channel.TextChannel型なのでstrと直接比較できない
         return
-    if message.content.startwith("/"):
+    if message.content.startswith("/"):
         # /から始まる発言にだけ反応
         if message.content == "/インプレ旋回":
             # hello
