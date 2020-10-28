@@ -26,6 +26,7 @@ class ImpressionFetcher:
             if response.status_code == 200:
                 self.raw_html = response.text
                 self.soup = BeautifulSoup(self.raw_html, "lxml")
+                return True
             else:
                 self.raw_html = ""
                 self.soup = None
