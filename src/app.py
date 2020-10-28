@@ -66,9 +66,9 @@ async def on_message(message):
                 if ret:
                     ret = ret.split("\n")
                     # 2000文字までしか送れないらしいので、途中で切る
-                    await message.channel.send("\n".join(ret[:75]))
-                    if ret[75:]:
-                        await message.channel.send("\n".join(ret[75:]))
+                    await message.channel.send("\n".join(ret[:50]))
+                    if ret[50:]:
+                        await message.channel.send("\n".join(ret[50:]))
                 else:
                     await message.channel.send("インプレ取得に失敗しました バグ鴨試練")
             elif re.match(r"/bms_list event=[0-9]+", message.content):
@@ -80,9 +80,9 @@ async def on_message(message):
                 if ret:
                     ret = ret.split("\n")
                     # 2000文字までしか送れないらしいので、途中で切る
-                    await message.channel.send("\n".join(ret[:75]))
-                    if ret[75:]:
-                        await message.channel.send("\n".join(ret[75:]))
+                    await message.channel.send("\n".join(ret[:50]))
+                    if ret[50:]:
+                        await message.channel.send("\n".join(ret[50:]))
                 else:
                     await message.channel.send("インプレ取得に失敗しました バグ鴨試練")
             else:
