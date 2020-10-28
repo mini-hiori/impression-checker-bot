@@ -122,7 +122,7 @@ class ImpressionFetcher:
     def get_recent_long_impression(self):
         "長文インプレを直近10件取得"
         info = self.soup.find_all(class_="spost clearfix nomarginbottom")
-        info = [i for i in info if i.find(class_="entry-meta")][:10]
+        info = [i for i in info if i.find(class_="entry-meta") and i.find(class_="points_normal")][:10]
         text_all = self.soup.find_all(class_="event-desc-detail")[:10]
         # 長文インプレはタグが別れてる
         if len(info) != len(text_all):
