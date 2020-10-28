@@ -81,7 +81,7 @@ async def on_message(message):
             await message.channel.send("バグりました 修正旋回！！！！！！")
 
 
-def send_message_split(message_obj, message_str):
+async def send_message_split(message_obj, message_str):
     for i in range(math.ceil(len(message_str) / 800)):
         await message_obj.channel.send(message_str[i * 800:(i + 1) * 800])
 
