@@ -124,10 +124,6 @@ class ImpressionFetcher:
         info = [i for i in info if i.find(class_="entry-meta") and i.find(class_="points_normal")][:10]
         text_all = self.soup.find_all(class_="event-desc-detail")
         text_all = [i for i in text_all if not i.find(class_="event-desc-time")][:10]
-        # 長文インプレはタグが別れてる
-        if len(info) != len(text_all):
-            print("htmlが怪しいです")
-            return []
         impressions = []
         for ind in range(len(info)):
             score = info[ind].find(class_="points_normal").text.strip()

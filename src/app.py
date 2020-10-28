@@ -40,7 +40,7 @@ async def on_message(message):
                 if ret:
                     await message.channel.send(ret)
                 else:
-                    await message.channel.send("つながらへんのん")
+                    await message.channel.send("インプレ取得に失敗しました バグ鴨試練")
             elif re.match(r"/check_short_impression event=[0-9]+ id=[0-9]+", message.content):
                 event_id, bms_id = re.search(
                     r"/check_short_impression event=([0-9]+) id=([0-9]+)", message.content).groups()
@@ -50,7 +50,7 @@ async def on_message(message):
                     for i in range(math.ceil(len(ret) / 800)):
                         await message.channel.send(ret[i * 800:(i + 1) * 800])
                 else:
-                    await message.channel.send("つながらへんのん")
+                    await message.channel.send("インプレ取得に失敗しました バグ鴨試練")
             elif re.match(r"/check_long_impression event=[0-9]+ id=[0-9]+", message.content):
                 event_id, bms_id = re.search(
                     r"/check_long_impression event=([0-9]+) id=([0-9]+)", message.content).groups()
@@ -60,7 +60,7 @@ async def on_message(message):
                     for i in range(math.ceil(len(ret) / 800)):
                         await message.channel.send(ret[i * 800:(i + 1) * 800])
                 else:
-                    await message.channel.send("つながらへんのん")
+                    await message.channel.send("インプレ取得に失敗しました バグ鴨試練")
             elif message.content == "/event_list":
                 ret = get_event_list()
                 if ret:
@@ -70,7 +70,7 @@ async def on_message(message):
                     if ret[75:]:
                         await message.channel.send("\n".join(ret[75:]))
                 else:
-                    await message.channel.send("つながらへんのん")
+                    await message.channel.send("インプレ取得に失敗しました バグ鴨試練")
             elif re.match(r"/bms_list event=[0-9]+", message.content):
                 bms_id = re.search(
                     r"/bms_list event=([0-9]+)",
@@ -84,7 +84,7 @@ async def on_message(message):
                     if ret[75:]:
                         await message.channel.send("\n".join(ret[75:]))
                 else:
-                    await message.channel.send("つながらへんのん")
+                    await message.channel.send("インプレ取得に失敗しました バグ鴨試練")
             else:
                 ret = "正しいメッセージを送卵塊！\nコマンド説明はピン留めしてあるよ"
                 await message.channel.send(ret)
