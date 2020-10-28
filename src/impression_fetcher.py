@@ -2,7 +2,7 @@ import re
 import traceback
 
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Comment
 
 USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'
 
@@ -26,6 +26,8 @@ class ImpressionFetcher:
             if response.status_code == 200:
                 self.raw_html = response.text
                 self.soup = BeautifulSoup(self.raw_html, "lxml")
+                for comment in self.soup(text=lambda x: isinstance(x, Comment)):
+                    comment.extract()
                 return response.status_code
             else:
                 self.raw_html = ""
