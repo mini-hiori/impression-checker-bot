@@ -38,7 +38,8 @@ async def on_message(message):
                     r"/stats event=([0-9]+) id=([0-9]+)", message.content).groups()
                 ret = get_stats(event_id, bms_id)
                 if ret:
-                    send_message_split(message, ret)
+                    for i in range(math.ceil(len(ret) / 800)):
+                        await message.channel.send(ret[i * 800:(i + 1) * 800])
                 else:
                     await message.channel.send("インプレ取得に失敗しました バグ鴨試練")
             elif re.match(r"/check_short_impression event=[0-9]+ id=[0-9]+", message.content):
@@ -46,7 +47,8 @@ async def on_message(message):
                     r"/check_short_impression event=([0-9]+) id=([0-9]+)", message.content).groups()
                 ret = get_short_impression(event_id, bms_id)
                 if ret:
-                    send_message_split(message, ret)
+                    for i in range(math.ceil(len(ret) / 800)):
+                        await message.channel.send(ret[i * 800:(i + 1) * 800])
                 else:
                     await message.channel.send("インプレ取得に失敗しました バグ鴨試練")
             elif re.match(r"/check_long_impression event=[0-9]+ id=[0-9]+", message.content):
@@ -54,13 +56,15 @@ async def on_message(message):
                     r"/check_long_impression event=([0-9]+) id=([0-9]+)", message.content).groups()
                 ret = get_long_impression(event_id, bms_id)
                 if ret:
-                    send_message_split(message, ret)
+                    for i in range(math.ceil(len(ret) / 800)):
+                        await message.channel.send(ret[i * 800:(i + 1) * 800])
                 else:
                     await message.channel.send("インプレ取得に失敗しました バグ鴨試練")
             elif message.content == "/event_list":
                 ret = get_event_list()
                 if ret:
-                    send_message_split(message, ret)
+                    for i in range(math.ceil(len(ret) / 800)):
+                        await message.channel.send(ret[i * 800:(i + 1) * 800])
                 else:
                     await message.channel.send("インプレ取得に失敗しました バグ鴨試練")
             elif re.match(r"/bms_list event=[0-9]+", message.content):
@@ -70,7 +74,8 @@ async def on_message(message):
                 print(bms_id)
                 ret = get_bms_list(bms_id)
                 if ret:
-                    send_message_split(message, ret)
+                    for i in range(math.ceil(len(ret) / 800)):
+                        await message.channel.send(ret[i * 800:(i + 1) * 800])
                 else:
                     await message.channel.send("インプレ取得に失敗しました バグ鴨試練")
             else:
@@ -81,9 +86,6 @@ async def on_message(message):
             await message.channel.send("バグりました 修正旋回！！！！！！")
 
 
-async def send_message_split(message_obj, message_str):
-    for i in range(math.ceil(len(message_str) / 800)):
-        await message_obj.channel.send(message_str[i * 800:(i + 1) * 800])
 
 
 if __name__ == '__main__':
