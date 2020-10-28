@@ -26,9 +26,6 @@ class ImpressionFetcher:
             if response.status_code == 200:
                 self.raw_html = response.text
                 self.soup = BeautifulSoup(self.raw_html, "lxml")
-                for comment in self.soup(text=lambda x: isinstance(x, Comment)):
-                    comment.extract()
-                return response.status_code
             else:
                 self.raw_html = ""
                 self.soup = None
@@ -125,7 +122,8 @@ class ImpressionFetcher:
         "長文インプレを直近10件取得"
         info = self.soup.find_all(class_="spost clearfix nomarginbottom")
         info = [i for i in info if i.find(class_="entry-meta") and i.find(class_="points_normal")][:10]
-        text_all = self.soup.find_all(class_="event-desc-detail")[:10]
+        text_all = self.soup.find_all(class_="event-desc-detail")
+        text_all = [i for i in text_all if not i.find(class_="event-desc-time")][:10]
         # 長文インプレはタグが別れてる
         if len(info) != len(text_all):
             print("htmlが怪しいです")
