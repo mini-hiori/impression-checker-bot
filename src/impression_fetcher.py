@@ -170,8 +170,8 @@ def get_event_list():
             return ""
     except BaseException:
         traceback.print_exc()
-        # もうちょっと細分化した方がいい タイムアウトとか...
         return ""
+
 
 def get_bms_list(event_id):
     "指定したイベントのbmsの登録idとタイトルを出力"
@@ -200,6 +200,7 @@ def get_bms_list(event_id):
         # もうちょっと細分化した方がいい タイムアウトとか...
         return ""
 
+
 def get_stats(event_id, bms_id):
     "指定したbmsのインプレ状況まとめを出力"
     bms_info = ImpressionFetcher(event_id, bms_id)
@@ -216,7 +217,8 @@ def get_stats(event_id, bms_id):
     else:
         return ""
 
-def get_short_impression(event_id,bms_id):
+
+def get_short_impression(event_id, bms_id):
     bms_info = ImpressionFetcher(event_id, bms_id)
     result = bms_info.fetch_bms_info()
     if result:
@@ -229,7 +231,8 @@ def get_short_impression(event_id,bms_id):
         message = ""
     return message
 
-def get_long_impression(event_id,bms_id):
+
+def get_long_impression(event_id, bms_id):
     bms_info = ImpressionFetcher(event_id, bms_id)
     result = bms_info.fetch_bms_info()
     if result:
