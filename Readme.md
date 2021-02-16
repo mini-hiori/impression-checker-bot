@@ -1,20 +1,8 @@
 # Impression-Checker-Bot
-+ [Digital Emergency Exit](http://manbow.nothing.sh/event/event.cgi)で行われるBMSイベントのインプレッション情報を取得するdiscordbotです。
++ [Digital Emergency Exit](http://manbow.nothing.sh/event/event.cgi)で行われるイベントのインプレを取得してきてくれるDiscordbot
 + 2020/10/27時点で動作確認済み(DEEのレイアウトがちょっとでも変わったら動かなくなるのであしからず)
-+ サーバーは[Heroku](https://jp.heroku.com/)を使っています。
-
-## 各種ファイル情報
-### src/app.py  
-discordbotの本体ファイル メッセージ受け取り→返答部分はここ
-### src/impression_fetcher.py
-クローラとインプレ情報やイベント・BMS一覧情報を返却する関数ファイル
-### Procfile
-Herokuにデプロイ後に実行するコマンドを記載したファイル
-ここworkerじゃないと動かないっぽいので注意
-### runtime.txt
-Heroku上の実行環境を記載したファイル
-### requirementx.txt
-各プログラム実行のためにインストールするライブラリ情報を記載したファイル
++ サーバーは[Heroku](https://jp.heroku.com/)の無料枠
+    + 月末は動かなくなる
 
 ## デプロイの流れ
 + [基本これでOK](https://qiita.com/1ntegrale9/items/9d570ef8175cf178468f)
@@ -25,4 +13,4 @@ Heroku CLIで「heroku ps:scale worker=1」を実行
 
 ## TODO
 + 型ヒントをつける
-+ heroku無料枠だと非稼働時間があるので適当に移植すべき
++ heroku無料枠だと月末に止まるので、他に移植したい
